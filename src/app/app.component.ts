@@ -30,15 +30,16 @@ export class AppComponent implements OnInit {
     this.todoCount$ = this.todosService.getTodosLength();
   }
 
-  addTodo(): void {
-    if (this.todoForm.get('todo').valid) {
-      const todoItem: ITodo = {
-        text: this.todoForm.get('todo').value,
-        completed: false,
-        editing: false
-      };
-      this.todosService.addTodo(todoItem);
-      this.todoForm.reset();
+  addTodo(event: KeyboardEvent): void {
+    console.log(typeof(event));
+    if (event && event.key === 'Enter' && this.todoForm.get('todo').valid){
+        const todoItem: ITodo = {
+          text: this.todoForm.get('todo').value,
+          completed: false,
+          editing: false
+        };
+        this.todosService.addTodo(todoItem);
+        this.todoForm.reset();
     }
   }
 

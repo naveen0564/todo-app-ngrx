@@ -4,7 +4,7 @@
     </header>
     <form [formGroup]="todoForm">
         <input class="new-todo" type="text" formControlName="todo" placeholder="What needs to be done?" autofocus=""
-            (keyup.enter)="addTodo()">
+        (keypress)="addTodo($event)">
     </form>
     <section class="main">
     <app-todos-list [todoItems$]="todoItems$"></app-todos-list>
