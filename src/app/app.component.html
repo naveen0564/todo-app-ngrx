@@ -1,0 +1,31 @@
+<main class="todoapp">
+    <header class="header">
+        <h1>todos</h1>
+    </header>
+    <form [formGroup]="todoForm">
+        <input class="new-todo" type="text" formControlName="todo" placeholder="What needs to be done?" autofocus=""
+            (keyup.enter)="addTodo()">
+    </form>
+    <section class="main">
+    <app-todos-list [todoItems$]="todoItems$"></app-todos-list>
+    </section>
+    <footer class="footer" *ngIf="(todoCount$|async)>0">
+        <span class="todo-count"> {{(remainingTodoCount$|async)}} items left</span>
+        <ul class="filters">
+            <li>
+                <a [ngClass]="filtertext === 'All' ? 'selected' : ''" (click)="filterTodo('All')">All</a>
+            </li>
+            <li>
+                <a [ngClass]="filtertext === 'Active' ? 'selected' : ''" (click)="filterTodo('Active')">Active</a>
+            </li>
+            <li>
+                <a [ngClass]="filtertext === 'Completed' ? 'selected' : ''"
+                    (click)="filterTodo('Completed')">Completed</a>
+            </li>
+        </ul>
+        <button *ngIf="((todoCount$|async)-(remainingTodoCount$|async))>0" (click)="clearComplete()" class="clear-completed">Clear completed</button>
+    </footer>
+</main>
+<footer class="info">
+    <p>Double-click to edit a todo</p>
+</footer>

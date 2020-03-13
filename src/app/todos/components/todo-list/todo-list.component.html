@@ -1,0 +1,17 @@
+    <ng-container>
+      <app-complete-all></app-complete-all>
+      <ul *ngIf="(todoItems$|async).length>0" class="todo-list">
+        <li *ngFor="let todo of (todoItems$|async);let i=index;" [ngClass]="{'completed':todo.completed, 'editing':todo.editing}">
+          <div class="view" *ngIf="!todo.editing">
+            <input class="toggle" (change)="todoToggle(todo.id, todo.completed)" [checked]="todo.completed" type="checkbox" />
+            <label (dblclick)="editTodo(todo.id)">{{todo.text}}</label>
+            <button class="destroy" (click)="removeTodo(todo.id)"></button>
+          </div>
+          <div *ngIf="todo.editing">
+            <input #task class="edit" (blur)="updateTodo(todo.id, task.value);" (keyup.escape)="cancelEditingTodo(todo.id);" (keyup.enter)="updateTodo(todo.id, task.value)"  [ngStyle]="{'display':'block'}"
+              value="{{todo.text}}">
+          </div>
+        </li>
+      </ul>
+      <!-- <ng-template #other_content><span *ngIf="filtertext !== 'all'" class="no-matches"> No todos are present</span> </ng-template> -->
+    </ng-container>
